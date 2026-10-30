@@ -1,5 +1,39 @@
-# Object file
-*.o
+# Dependencies
+node_modules/
 
-# Ada Library Information
-*.ali
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Prisma generated client
+/src/generated/prisma/
+
+# Database SQLite lokal
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Build
+.next/
+dist/
+build/
+out/
+
+# Vercel
+.vercel/
+
+# Logs
+logs/
+*.log
+
+# Cache
+.cache/
+.npm/
+*.tsbuildinfo
+.eslintcache
+
+# File sistem operasi
+.DS_Store
+Thumbs.db
