@@ -4,8 +4,9 @@ generator client {
 
 // Menggunakan SQLite untuk database lokal yang ringan
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 // Tabel untuk mengatur Layanan Perusahaan MNCo
