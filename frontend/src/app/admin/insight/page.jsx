@@ -123,25 +123,49 @@ export default function AdminInsightPage() {
         {/* CSS Tambahan agar Quill Editor memenuhi tinggi layar */}
         <style>{`
           .quill-editor-container .ql-container {
-            height: 500px;
+            min-height: 360px;
+            height: clamp(360px, 58vh, 640px);
             font-size: 15px;
             font-family: inherit;
-            border-bottom-left-radius: 0.75rem;
-            border-bottom-right-radius: 0.75rem;
+            border: 0;
+            border-bottom-left-radius: 1.25rem;
+            border-bottom-right-radius: 1.25rem;
             background-color: white;
           }
           .quill-editor-container .ql-toolbar {
-            border-top-left-radius: 0.75rem;
-            border-top-right-radius: 0.75rem;
-            background-color: #f8fafc;
+            border: 0;
+            border-bottom: 1px solid #eef0eb;
+            border-top-left-radius: 1.25rem;
+            border-top-right-radius: 1.25rem;
+            background-color: #fbfaf7;
+          }
+          .quill-editor-container .ql-editor {
+            padding: 1.5rem;
+            line-height: 1.8;
+          }
+          @media (max-width: 640px) {
+            .quill-editor-container .ql-container {
+              height: 52vh;
+              min-height: 320px;
+            }
+            .quill-editor-container .ql-editor {
+              padding: 1rem;
+            }
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .insight-motion {
+              transition: none !important;
+              animation: none !important;
+            }
           }
         `}</style>
 
-        <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-200">
-          <div className="flex items-center gap-4">
+        <div className="mb-7 flex flex-col gap-4 rounded-[1.75rem] border border-white bg-white/90 p-4 shadow-[0_18px_50px_rgba(40,54,48,0.06)] sm:mb-8 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-5">
+          <div className="flex min-w-0 items-center gap-3 sm:gap-4">
             <button
               onClick={closeEditor}
-              className="text-slate-500 hover:text-slate-800 transition-colors p-2 bg-white rounded-full border border-slate-200 shadow-sm"
+              aria-label="Kembali ke daftar artikel"
+              className="shrink-0 rounded-full border border-slate-200 bg-white p-2.5 text-slate-500 shadow-[0_6px_18px_rgba(40,54,48,0.07)] transition-all hover:-translate-x-0.5 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-amber-100"
             >
               <svg
                 className="w-5 h-5"
@@ -157,14 +181,17 @@ export default function AdminInsightPage() {
                 ></path>
               </svg>
             </button>
-            <h1 className="text-xl font-extrabold text-slate-900">
+            <div className="min-w-0">
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-700">Ruang editorial</p>
+            <h1 className="truncate text-lg font-semibold tracking-tight text-slate-900 sm:text-xl">
               {editingId ? "Edit Artikel" : "Tulis Artikel Baru"}
             </h1>
+            </div>
           </div>
           <button
-            onClick={handleSubmit}
+            onClick={(e) => handleSubmit(e)}
             disabled={isSaving}
-            className="bg-blue-600 text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-blue-700 shadow-lg transition-all disabled:bg-slate-400 flex items-center gap-2"
+            className="inline-flex min-h-11 w-full shrink-0 items-center justify-center gap-2 rounded-2xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-[0_12px_25px_rgba(38,55,49,0.14)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-slate-800 hover:shadow-[0_16px_30px_rgba(38,55,49,0.18)] disabled:cursor-wait disabled:opacity-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-slate-300 sm:w-auto"
           >
             {isSaving ? "Menyimpan..." : "Publikasikan Artikel"}
             {!isSaving && (
@@ -185,15 +212,15 @@ export default function AdminInsightPage() {
           </button>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          <div className="lg:col-span-8 space-y-6">
+        <div className="grid grid-cols-1 items-start gap-5 lg:grid-cols-12 lg:gap-7">
+          <div className="space-y-5 rounded-[1.75rem] border border-white bg-white/80 p-5 shadow-[0_18px_50px_rgba(40,54,48,0.06)] sm:p-7 lg:col-span-8 lg:p-9">
             <input
               type="text"
               name="title"
               value={formData.title}
               onChange={handleChange}
               required
-              className="w-full text-3xl font-extrabold text-slate-900 placeholder-slate-300 border-none bg-transparent focus:outline-none focus:ring-0 px-0"
+              className="w-full border-0 bg-transparent px-0 text-2xl font-semibold tracking-tight text-slate-900 placeholder:text-slate-300 focus:outline-none focus:ring-0 sm:text-4xl"
               placeholder="Ketik Judul Artikel di Sini..."
             />
 
@@ -203,12 +230,12 @@ export default function AdminInsightPage() {
               onChange={handleChange}
               required
               rows="2"
-              className="w-full text-lg text-slate-500 placeholder-slate-300 border-none bg-transparent focus:outline-none focus:ring-0 px-0 resize-none leading-relaxed"
+              className="w-full resize-none border-0 bg-transparent px-0 text-base leading-7 text-slate-600 placeholder:text-slate-300 focus:outline-none focus:ring-0 sm:text-lg"
               placeholder="Tuliskan ringkasan singkat (excerpt) untuk memancing pembaca..."
             ></textarea>
 
             {/* EDITOR SAKTI REACT-QUILL */}
-            <div className="quill-editor-container rounded-xl shadow-sm border border-slate-200">
+            <div className="quill-editor-container overflow-hidden rounded-[1.25rem] border border-slate-200/80 shadow-[0_12px_35px_rgba(40,54,48,0.06)]">
               <ReactQuill
                 theme="snow"
                 modules={quillModules}
@@ -219,21 +246,21 @@ export default function AdminInsightPage() {
             </div>
           </div>
 
-          <div className="lg:col-span-4 space-y-6">
-            <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
-              <h3 className="text-[13px] font-bold text-slate-800 mb-4 pb-3 border-b border-slate-100">
+          <div className="space-y-5 lg:sticky lg:top-6 lg:col-span-4">
+            <div className="rounded-[1.75rem] border border-white bg-white/90 p-5 shadow-[0_20px_60px_rgba(40,54,48,0.07)] sm:p-6">
+              <h3 className="mb-5 border-b border-slate-100 pb-4 text-sm font-semibold tracking-tight text-slate-800">
                 Pengaturan Publikasi
               </h3>
 
               <div className="mb-5">
-                <label className="block text-[11px] font-bold text-slate-500 uppercase mb-2">
+                <label className="mb-2 block text-[11px] font-semibold uppercase tracking-wider text-slate-500">
                   Kategori Artikel
                 </label>
                 <select
                   name="category"
                   value={formData.category}
                   onChange={handleChange}
-                  className="w-full border border-slate-200 p-3 rounded-xl text-[13px] bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100"
+                  className="w-full rounded-2xl border border-slate-200/80 bg-slate-50/70 p-3.5 text-sm transition-all hover:border-slate-300 focus:border-amber-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-amber-100/70"
                 >
                   <option value="Pajak Korporat">Pajak Korporat</option>
                   <option value="Hukum Pajak">Hukum Pajak</option>
@@ -245,7 +272,7 @@ export default function AdminInsightPage() {
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold text-slate-500 uppercase mb-2">
+                <label className="mb-2 block text-[11px] font-semibold uppercase tracking-wider text-slate-500">
                   URL Gambar Utama / Sampul
                 </label>
                 <input
@@ -253,16 +280,16 @@ export default function AdminInsightPage() {
                   name="imageUrl"
                   value={formData.imageUrl}
                   onChange={handleChange}
-                  className="w-full border border-slate-200 p-3 rounded-xl text-[13px] bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100 mb-3"
+                  className="mb-3 w-full rounded-2xl border border-slate-200/80 bg-slate-50/70 p-3.5 text-sm transition-all placeholder:text-slate-400 hover:border-slate-300 focus:border-amber-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-amber-100/70"
                   placeholder="https://contoh.com/gambar.jpg"
                 />
 
                 {formData.imageUrl ? (
-                  <div className="w-full h-40 rounded-xl border border-slate-200 overflow-hidden relative group">
+                  <div className="group relative h-40 w-full overflow-hidden rounded-2xl border border-slate-200/80 bg-slate-100">
                     <img
                       src={formData.imageUrl}
                       alt="Preview"
-                      className="w-full h-full object-cover"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                       onError={(e) => {
                         e.target.src =
                           "https://via.placeholder.com/400x300?text=URL+Gambar+Gagal+Dimuat";
@@ -270,7 +297,7 @@ export default function AdminInsightPage() {
                     />
                   </div>
                 ) : (
-                  <div className="w-full h-24 rounded-xl border-2 border-dashed border-slate-200 bg-slate-50 flex flex-col items-center justify-center text-slate-400">
+                  <div className="flex h-28 w-full flex-col items-center justify-center rounded-2xl border border-dashed border-slate-200 bg-[#fbfaf7] text-slate-400">
                     <svg
                       className="w-6 h-6 mb-1"
                       fill="none"
@@ -296,19 +323,21 @@ export default function AdminInsightPage() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto font-sans pb-10">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
-        <div>
-          <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">
+    <div className="mx-auto max-w-[1440px] space-y-8 pb-12 font-sans">
+      <div className="relative flex flex-col items-start justify-between gap-6 overflow-hidden rounded-[2rem] border border-amber-100/80 bg-gradient-to-br from-[#fffdf8] via-white to-[#f4f7f5] px-6 py-8 shadow-[0_24px_70px_rgba(40,54,48,0.06)] sm:flex-row sm:items-center sm:px-9 sm:py-10 lg:px-12">
+        <div className="absolute -right-16 -top-24 h-64 w-64 rounded-full bg-amber-100/40 blur-3xl" />
+        <div className="relative">
+          <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.24em] text-amber-700">Ruang kerja / Editorial</p>
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
             Manajemen Insight
           </h1>
-          <p className="text-slate-500 text-[13px] md:text-sm mt-1">
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600 md:text-base">
             Kelola publikasi artikel, berita, dan edukasi perpajakan Anda.
           </p>
         </div>
         <button
           onClick={handleNewPost}
-          className="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold text-sm hover:bg-blue-700 shadow-lg shadow-blue-200 transition-all transform hover:-translate-y-0.5 flex items-center gap-2"
+          className="relative inline-flex min-h-12 w-full shrink-0 items-center justify-center gap-2 rounded-2xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white shadow-[0_12px_25px_rgba(38,55,49,0.14)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-slate-800 hover:shadow-[0_16px_30px_rgba(38,55,49,0.18)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-slate-300 sm:w-auto"
         >
           <svg
             className="w-5 h-5"
@@ -332,8 +361,8 @@ export default function AdminInsightPage() {
           Memuat artikel...
         </div>
       ) : insights.length === 0 ? (
-        <div className="bg-white border border-slate-200 rounded-3xl p-16 text-center shadow-sm">
-          <div className="w-16 h-16 bg-blue-50 text-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+        <div className="rounded-[2rem] border border-white bg-white/90 px-6 py-14 text-center shadow-[0_20px_60px_rgba(40,54,48,0.07)] sm:px-12 sm:py-20">
+          <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-[1.4rem] bg-amber-50 text-amber-700">
             <svg
               className="w-8 h-8"
               fill="none"
@@ -348,36 +377,36 @@ export default function AdminInsightPage() {
               ></path>
             </svg>
           </div>
-          <h3 className="text-xl font-bold text-slate-800 mb-2">
+          <h3 className="mb-2 text-xl font-semibold tracking-tight text-slate-900">
             Belum Ada Artikel
           </h3>
-          <p className="text-slate-500 text-sm mb-6 max-w-sm mx-auto">
+          <p className="mx-auto mb-7 max-w-sm text-sm leading-6 text-slate-500">
             Anda belum memublikasikan insight apapun. Mulai tulis artikel
             pertama Anda untuk klien!
           </p>
           <button
             onClick={handleNewPost}
-            className="bg-slate-900 text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-slate-800"
+            className="rounded-2xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(38,55,49,0.12)] transition-all hover:-translate-y-0.5 hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-slate-300"
           >
             Tulis Sekarang
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3 2xl:gap-7">
           {insights.map((post) => (
             <div
               key={post.id}
-              className="bg-white rounded-2xl border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] overflow-hidden flex flex-col group hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all"
+              className="group flex flex-col overflow-hidden rounded-[1.75rem] border border-white bg-white/90 shadow-[0_18px_50px_rgba(40,54,48,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(40,54,48,0.11)]"
             >
-              <div className="h-40 bg-slate-100 relative overflow-hidden">
+              <div className="relative h-48 overflow-hidden bg-gradient-to-br from-amber-50 to-slate-100 sm:h-52">
                 {post.imageUrl ? (
                   <img
                     src={post.imageUrl}
                     alt={post.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-slate-300">
+                  <div className="flex h-full w-full items-center justify-center text-amber-200">
                     <svg
                       className="w-10 h-10"
                       fill="none"
@@ -393,13 +422,13 @@ export default function AdminInsightPage() {
                     </svg>
                   </div>
                 )}
-                <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-blue-700 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
+                <div className="absolute left-4 top-4 rounded-full border border-white/70 bg-white/90 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-amber-800 shadow-[0_5px_18px_rgba(40,54,48,0.08)] backdrop-blur">
                   {post.category}
                 </div>
               </div>
 
-              <div className="p-5 flex flex-col flex-1">
-                <p className="text-[11px] text-slate-400 font-medium mb-2 flex items-center gap-1.5">
+              <div className="flex flex-1 flex-col p-5 sm:p-6">
+                <p className="mb-3 flex items-center gap-1.5 text-[11px] font-medium text-slate-400">
                   <svg
                     className="w-3.5 h-3.5"
                     fill="none"
@@ -419,23 +448,24 @@ export default function AdminInsightPage() {
                     year: "numeric",
                   })}
                 </p>
-                <h3 className="text-[16px] font-bold text-slate-900 mb-2 leading-snug line-clamp-2">
+                <h3 className="mb-2 line-clamp-2 text-lg font-semibold leading-snug tracking-tight text-slate-900">
                   {post.title}
                 </h3>
-                <p className="text-[13px] text-slate-500 line-clamp-2 flex-1 mb-5 leading-relaxed">
+                <p className="mb-6 line-clamp-3 flex-1 text-sm leading-6 text-slate-500">
                   {post.excerpt}
                 </p>
 
-                <div className="pt-4 border-t border-slate-100 flex gap-2">
+                <div className="flex gap-2 border-t border-slate-100 pt-4">
                   <button
                     onClick={() => handleEdit(post)}
-                    className="flex-1 bg-slate-50 text-slate-700 hover:bg-blue-50 hover:text-blue-700 text-[12px] font-bold py-2 rounded-lg transition-colors border border-slate-100"
+                    className="min-h-10 flex-1 rounded-xl border border-slate-200/80 bg-slate-50 px-3 py-2 text-xs font-semibold text-slate-700 transition-all hover:border-amber-200 hover:bg-amber-50 hover:text-amber-900 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-amber-100"
                   >
                     Edit Artikel
                   </button>
                   <button
                     onClick={() => handleDelete(post.id)}
-                    className="px-3 bg-slate-50 text-slate-400 hover:bg-red-50 hover:text-red-600 hover:border-red-200 rounded-lg transition-colors border border-slate-100"
+                    aria-label={`Hapus artikel ${post.title}`}
+                    className="flex min-h-10 min-w-10 items-center justify-center rounded-xl border border-slate-200/80 bg-slate-50 px-3 text-slate-500 transition-all hover:border-rose-200 hover:bg-rose-50 hover:text-rose-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-rose-100"
                     title="Hapus"
                   >
                     <svg

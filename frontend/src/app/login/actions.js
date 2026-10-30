@@ -15,7 +15,7 @@ export async function prosesLogin(formData) {
 
     cookieStore.set("admin_session", "tiket_rahasia_mnco", {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: false,
       maxAge: 60 * 60 * 24, // 24 Jam
     });
     return { success: true };

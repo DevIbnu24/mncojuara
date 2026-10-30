@@ -82,24 +82,26 @@ export default function KelolaTimPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto font-sans">
-      <div className="mb-8">
-        <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">
+    <div className="mx-auto max-w-[1440px] space-y-8 pb-12 font-sans">
+      <div className="relative overflow-hidden rounded-[2rem] border border-amber-100/80 bg-gradient-to-br from-[#fffdf8] via-white to-[#f4f7f5] px-6 py-8 shadow-[0_24px_70px_rgba(40,54,48,0.06)] sm:px-9 sm:py-10 lg:px-12">
+        <div className="absolute -right-16 -top-24 h-64 w-64 rounded-full bg-amber-100/40 blur-3xl" />
+        <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.24em] text-amber-700">Ruang kerja / Organisasi</p>
+        <h1 className="relative text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
           Kelola Tim & Organisasi
         </h1>
-        <p className="text-slate-500 text-sm mt-1">
+        <p className="relative mt-3 max-w-2xl text-sm leading-6 text-slate-600 md:text-base">
           Tambahkan, ubah, atau hapus anggota tim yang tampil di halaman Tentang
           Kami.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-12 lg:gap-8">
         {/* KIRI: FORM TAMBAH / EDIT */}
         <div
-          className={`lg:col-span-4 rounded-2xl shadow-sm border p-6 sticky top-6 transition-colors ${editingId ? "bg-blue-50 border-blue-200" : "bg-white border-slate-100"}`}
+          className={`rounded-[1.75rem] border p-5 shadow-[0_20px_60px_rgba(40,54,48,0.07)] transition-all duration-300 sm:p-7 lg:sticky lg:top-6 lg:col-span-4 ${editingId ? "border-amber-200 bg-amber-50/60" : "border-white bg-white/90"}`}
         >
           <h2
-            className={`text-[15px] font-bold mb-5 pb-4 border-b flex items-center gap-2 ${editingId ? "text-blue-800 border-blue-200" : "text-slate-800 border-slate-100"}`}
+            className={`mb-6 flex items-center gap-2 border-b pb-5 text-base font-semibold tracking-tight ${editingId ? "border-amber-200 text-amber-900" : "border-slate-100 text-slate-800"}`}
           >
             {editingId ? "Ubah Data Anggota" : "Tambah Anggota Baru"}
           </h2>
@@ -114,7 +116,7 @@ export default function KelolaTimPage() {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full border border-slate-200 p-3 rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500"
+                className="w-full rounded-2xl border border-slate-200/80 bg-slate-50/70 p-3.5 text-sm transition-all placeholder:text-slate-400 hover:border-slate-300 focus:border-amber-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-amber-100/70"
                 placeholder="Contoh: Jafar Shodiq"
               />
             </div>
@@ -127,7 +129,7 @@ export default function KelolaTimPage() {
                 name="credentials"
                 value={formData.credentials}
                 onChange={handleChange}
-                className="w-full border border-slate-200 p-3 rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500"
+                className="w-full rounded-2xl border border-slate-200/80 bg-slate-50/70 p-3.5 text-sm transition-all placeholder:text-slate-400 hover:border-slate-300 focus:border-amber-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-amber-100/70"
                 placeholder="Contoh: S.Akt., M.Ak., BKP"
               />
             </div>
@@ -141,7 +143,7 @@ export default function KelolaTimPage() {
                 value={formData.role}
                 onChange={handleChange}
                 required
-                className="w-full border border-slate-200 p-3 rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500"
+                className="w-full rounded-2xl border border-slate-200/80 bg-slate-50/70 p-3.5 text-sm transition-all placeholder:text-slate-400 hover:border-slate-300 focus:border-amber-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-amber-100/70"
                 placeholder="Contoh: Managing Partner"
               />
             </div>
@@ -154,7 +156,7 @@ export default function KelolaTimPage() {
                 value={formData.category}
                 onChange={handleChange}
                 required
-                className="w-full border border-slate-200 p-3 rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500"
+                className="w-full rounded-2xl border border-slate-200/80 bg-slate-50/70 p-3.5 text-sm transition-all hover:border-slate-300 focus:border-amber-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-amber-100/70"
               >
                 <option value="">-- Pilih Kelompok --</option>
                 <option value="Managing Partner">Managing Partner</option>
@@ -168,7 +170,7 @@ export default function KelolaTimPage() {
             <div className="pt-2 flex flex-col gap-2">
               <button
                 type="submit"
-                className={`w-full text-white px-4 py-3 rounded-xl font-bold text-sm transition-colors ${editingId ? "bg-orange-500 hover:bg-orange-600" : "bg-blue-600 hover:bg-blue-700"}`}
+                className={`w-full rounded-2xl px-4 py-3.5 text-sm font-semibold text-white shadow-[0_12px_25px_rgba(38,55,49,0.14)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_30px_rgba(38,55,49,0.18)] focus-visible:outline-none focus-visible:ring-4 ${editingId ? "bg-amber-600 hover:bg-amber-700 focus-visible:ring-amber-200" : "bg-slate-900 hover:bg-slate-800 focus-visible:ring-slate-300"}`}
               >
                 {editingId ? "Simpan Perubahan" : "Simpan ke Website"}
               </button>
@@ -176,7 +178,7 @@ export default function KelolaTimPage() {
                 <button
                   type="button"
                   onClick={cancelEdit}
-                  className="w-full bg-slate-200 text-slate-700 px-4 py-3 rounded-xl hover:bg-slate-300 font-bold text-sm transition-colors"
+                  className="w-full rounded-2xl bg-slate-100 px-4 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-200 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-slate-200"
                 >
                   Batal Edit
                 </button>
@@ -186,13 +188,13 @@ export default function KelolaTimPage() {
         </div>
 
         {/* KANAN: DAFTAR TIM */}
-        <div className="lg:col-span-8 bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-          <div className="p-6 border-b border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="overflow-hidden rounded-[1.75rem] border border-white bg-white/90 shadow-[0_20px_60px_rgba(40,54,48,0.07)] lg:col-span-8">
+          <div className="flex flex-col items-start justify-between gap-4 border-b border-slate-100/80 bg-[#fbfaf7] p-5 sm:flex-row sm:items-center sm:px-7 sm:py-6">
             <div className="flex items-center gap-3">
-              <h2 className="text-[15px] font-bold text-slate-800">
+              <h2 className="text-base font-semibold tracking-tight text-slate-800">
                 Daftar Anggota
               </h2>
-              <span className="bg-blue-100 text-blue-700 text-[11px] font-bold px-3 py-1 rounded-full">
+              <span className="rounded-full bg-amber-100/70 px-3 py-1.5 text-[11px] font-bold text-amber-800">
                 {team.length} Anggota
               </span>
             </div>
@@ -201,7 +203,7 @@ export default function KelolaTimPage() {
             {team.length === 0 && !isLoading && (
               <button
                 onClick={handleImport}
-                className="bg-green-600 hover:bg-green-700 text-white text-[12px] font-bold px-4 py-2 rounded-lg flex items-center gap-2 transition-colors shadow-sm animate-pulse"
+                className="flex items-center gap-2 rounded-xl bg-emerald-700 px-4 py-2.5 text-xs font-semibold text-white shadow-[0_10px_24px_rgba(16,100,73,0.16)] transition-all hover:-translate-y-0.5 hover:bg-emerald-800 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-emerald-100"
               >
                 <svg
                   className="w-4 h-4"
@@ -221,7 +223,7 @@ export default function KelolaTimPage() {
             )}
           </div>
 
-          <div className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 sm:p-6 xl:p-7">
             {isLoading ? (
               <p className="text-slate-500 text-sm">Memuat data...</p>
             ) : team.length === 0 ? (
@@ -233,23 +235,24 @@ export default function KelolaTimPage() {
               team.map((member) => (
                 <div
                   key={member.id}
-                  className={`group p-4 border rounded-xl transition-colors relative ${editingId === member.id ? "border-orange-400 bg-orange-50/30" : "border-slate-200 hover:border-blue-300"}`}
+                  className={`group relative rounded-[1.5rem] border p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(40,54,48,0.08)] ${editingId === member.id ? "border-amber-300 bg-amber-50/60" : "border-slate-200/70 bg-gradient-to-br from-white to-[#fbfaf7] hover:border-amber-200"}`}
                 >
-                  <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded mb-2 inline-block uppercase tracking-wider">
+                  <span className="mb-3 inline-block rounded-full bg-amber-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-amber-800">
                     {member.category}
                   </span>
-                  <h3 className="text-sm font-bold text-slate-900">
+                  <h3 className="pr-16 text-base font-semibold text-slate-900">
                     {member.name}
                   </h3>
-                  <p className="text-[11px] text-slate-500 mt-1">
+                  <p className="mt-1 text-xs leading-5 text-slate-500">
                     {member.role}{" "}
                     {member.credentials && `• ${member.credentials}`}
                   </p>
 
-                  <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="absolute right-4 top-4 flex gap-1.5 opacity-100 transition-opacity">
                     <button
                       onClick={() => handleEditClick(member)}
-                      className="text-orange-500 hover:text-orange-700 bg-white shadow-sm p-1.5 rounded-md border border-slate-100"
+                      aria-label={`Ubah ${member.name}`}
+                      className="rounded-xl border border-slate-200/80 bg-white p-2 text-amber-700 shadow-[0_5px_15px_rgba(40,54,48,0.08)] transition-colors hover:bg-amber-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-amber-100"
                     >
                       <svg
                         className="w-4 h-4"
@@ -267,7 +270,8 @@ export default function KelolaTimPage() {
                     </button>
                     <button
                       onClick={() => handleDelete(member.id)}
-                      className="text-red-500 hover:text-red-700 bg-white shadow-sm p-1.5 rounded-md border border-slate-100"
+                      aria-label={`Hapus ${member.name}`}
+                      className="rounded-xl border border-slate-200/80 bg-white p-2 text-rose-600 shadow-[0_5px_15px_rgba(40,54,48,0.08)] transition-colors hover:bg-rose-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-rose-100"
                     >
                       <svg
                         className="w-4 h-4"

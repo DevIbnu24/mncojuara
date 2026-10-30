@@ -1,6 +1,39 @@
+# Dependencies
 node_modules/
+
+# Environment variables
 .env
+.env.*
+!.env.example
+
+# Prisma generated client
+/src/generated/prisma/
+
+# Database SQLite lokal
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Build
 .next/
 dist/
+build/
+out/
 
-/src/generated/prisma
+# Vercel
+.vercel/
+
+# Logs
+logs/
+*.log
+
+# Cache
+.cache/
+.npm/
+*.tsbuildinfo
+.eslintcache
+
+# File sistem operasi
+.DS_Store
+Thumbs.db

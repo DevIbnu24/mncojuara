@@ -71,20 +71,22 @@ export default function KelolaLayanan() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto font-sans">
-      <div className="mb-8">
-        <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">
+    <div className="mx-auto max-w-[1440px] space-y-8 pb-12 font-sans">
+      <div className="relative overflow-hidden rounded-[2rem] border border-amber-100/80 bg-gradient-to-br from-[#fffdf8] via-white to-[#f4f7f5] px-6 py-8 shadow-[0_24px_70px_rgba(40,54,48,0.06)] sm:px-9 sm:py-10 lg:px-12">
+        <div className="absolute -right-16 -top-24 h-64 w-64 rounded-full bg-amber-100/40 blur-3xl" />
+        <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.24em] text-amber-700">Ruang kerja / Katalog</p>
+        <h1 className="relative text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
           Kelola Layanan
         </h1>
-        <p className="text-slate-500 text-[13px] md:text-sm mt-1">
+        <p className="relative mt-3 max-w-2xl text-sm leading-6 text-slate-600 md:text-base">
           Tambah, ubah, atau hapus daftar layanan yang tampil di website publik.
         </p>
       </div>
 
-      <div className="grid lg:grid-cols-12 gap-6 md:gap-8 items-start">
+      <div className="grid items-start gap-6 md:gap-8 lg:grid-cols-12">
         {/* PANEL KIRI: FORM INPUT */}
-        <div className="lg:col-span-4 bg-white rounded-2xl shadow-[0_2px_12px_rgb(0,0,0,0.03)] border border-slate-100 p-6 sticky top-6 transition-all duration-300">
-          <h2 className="text-[15px] font-bold text-slate-800 mb-5 pb-4 border-b border-slate-100 flex items-center gap-2">
+        <div className="rounded-[1.75rem] border border-white bg-white/90 p-5 shadow-[0_20px_60px_rgba(40,54,48,0.07)] backdrop-blur transition-all duration-300 sm:p-7 lg:sticky lg:top-6 lg:col-span-4">
+          <h2 className="mb-6 flex items-center gap-2 border-b border-slate-100 pb-5 text-base font-semibold tracking-tight text-slate-800">
             {editId ? (
               <>
                 <svg
@@ -132,7 +134,7 @@ export default function KelolaLayanan() {
                 required
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full border border-slate-200 p-3 rounded-xl text-[13px] md:text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 transition-all bg-slate-50 focus:bg-white"
+                className="w-full rounded-2xl border border-slate-200/80 bg-slate-50/70 p-3.5 text-sm text-slate-800 transition-all placeholder:text-slate-400 hover:border-slate-300 focus:border-amber-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-amber-100/70"
                 placeholder="Contoh: Konsultasi Pajak"
               />
             </div>
@@ -145,17 +147,17 @@ export default function KelolaLayanan() {
                 rows="4"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="w-full border border-slate-200 p-3 rounded-xl text-[13px] md:text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 transition-all bg-slate-50 focus:bg-white resize-none"
+                className="w-full resize-none rounded-2xl border border-slate-200/80 bg-slate-50/70 p-3.5 text-sm text-slate-800 transition-all placeholder:text-slate-400 hover:border-slate-300 focus:border-amber-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-amber-100/70"
                 placeholder="Jelaskan detail layanan ini..."
               ></textarea>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
               <button
                 type="submit"
-                className={`flex-1 text-white font-bold py-2.5 rounded-xl text-[13px] transition-colors shadow-sm ${
+                className={`flex-1 rounded-2xl py-3 text-sm font-semibold text-white shadow-[0_12px_25px_rgba(38,55,49,0.14)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_30px_rgba(38,55,49,0.18)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-amber-200 ${
                   editId
-                    ? "bg-orange-500 hover:bg-orange-600"
-                    : "bg-blue-600 hover:bg-blue-700"
+                    ? "bg-amber-600 hover:bg-amber-700"
+                    : "bg-slate-900 hover:bg-slate-800"
                 }`}
               >
                 {editId ? "Simpan Perubahan" : "Simpan Layanan"}
@@ -168,7 +170,7 @@ export default function KelolaLayanan() {
                     setTitle("");
                     setDescription("");
                   }}
-                  className="px-5 py-2.5 bg-slate-100 text-slate-600 text-[13px] font-bold rounded-xl hover:bg-slate-200 transition-colors"
+                  className="rounded-2xl bg-slate-100 px-5 py-3 text-sm font-semibold text-slate-600 transition-colors hover:bg-slate-200 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-slate-200"
                 >
                   Batal
                 </button>
@@ -179,17 +181,17 @@ export default function KelolaLayanan() {
 
         {/* PANEL KANAN: DAFTAR LAYANAN */}
         <div className="lg:col-span-8">
-          <div className="bg-white rounded-2xl shadow-[0_2px_12px_rgb(0,0,0,0.03)] border border-slate-100 overflow-hidden">
-            <div className="px-6 py-5 border-b border-slate-100 bg-slate-50/50 flex justify-between items-center">
-              <h2 className="text-[14px] md:text-[15px] font-bold text-slate-800">
+          <div className="overflow-hidden rounded-[1.75rem] border border-white bg-white/90 shadow-[0_20px_60px_rgba(40,54,48,0.07)]">
+            <div className="flex flex-col items-start justify-between gap-3 border-b border-slate-100/80 bg-[#fbfaf7] px-5 py-5 sm:flex-row sm:items-center sm:px-7">
+              <h2 className="text-base font-semibold tracking-tight text-slate-800">
                 Daftar Layanan Tersimpan
               </h2>
-              <span className="bg-blue-100 text-blue-700 text-[10px] md:text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+              <span className="rounded-full bg-amber-100/70 px-3 py-1.5 text-[11px] font-bold tracking-wide text-amber-800">
                 {services.length} Total
               </span>
             </div>
 
-            <div className="p-6">
+            <div className="p-4 sm:p-7">
               {isLoading ? (
                 <div className="text-center py-12">
                   <div className="w-8 h-8 border-4 border-blue-100 border-t-blue-600 rounded-full animate-spin mx-auto mb-3"></div>
@@ -198,7 +200,7 @@ export default function KelolaLayanan() {
                   </p>
                 </div>
               ) : services.length === 0 ? (
-                <div className="text-center py-12 border-2 border-dashed border-slate-100 rounded-2xl bg-slate-50/50">
+                <div className="rounded-[1.5rem] border border-dashed border-slate-200 bg-[#fbfaf7] py-14 text-center">
                   <svg
                     className="w-12 h-12 text-slate-300 mx-auto mb-3"
                     fill="none"
@@ -220,25 +222,25 @@ export default function KelolaLayanan() {
                   </p>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
                   {services.map((service) => (
                     <div
                       key={service.id}
-                      className="group flex flex-col justify-between p-5 bg-white border border-slate-200 rounded-xl hover:border-blue-300 hover:shadow-[0_4px_20px_rgb(0,0,0,0.06)] transition-all duration-300 relative overflow-hidden"
+                      className="group relative flex flex-col justify-between overflow-hidden rounded-[1.5rem] border border-slate-200/70 bg-gradient-to-br from-white to-[#fbfaf7] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-amber-200 hover:shadow-[0_22px_45px_rgba(40,54,48,0.09)] sm:p-6"
                     >
                       <div className="mb-6">
-                        <h3 className="text-[14px] md:text-[15px] font-bold text-slate-900 leading-tight">
+                        <h3 className="text-base font-semibold leading-snug text-slate-900">
                           {service.title}
                         </h3>
-                        <p className="text-slate-500 text-[12px] md:text-[13px] mt-2 leading-relaxed">
+                        <p className="mt-3 text-sm leading-6 text-slate-600">
                           {service.description}
                         </p>
                       </div>
 
-                      <div className="flex gap-2 justify-start mt-auto pt-4 border-t border-slate-100">
+                      <div className="mt-auto flex justify-start gap-2 border-t border-slate-100 pt-4">
                         <button
                           onClick={() => handleEdit(service)}
-                          className="flex items-center gap-1.5 px-3 py-1.5 bg-orange-50 text-orange-600 text-[11px] md:text-xs font-bold rounded-lg hover:bg-orange-100 transition-colors"
+                          className="flex items-center gap-1.5 rounded-xl bg-amber-50 px-3.5 py-2 text-xs font-semibold text-amber-800 transition-all hover:bg-amber-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-amber-100"
                         >
                           <svg
                             className="w-3.5 h-3.5"
@@ -257,7 +259,7 @@ export default function KelolaLayanan() {
                         </button>
                         <button
                           onClick={() => handleDelete(service.id)}
-                          className="flex items-center gap-1.5 px-3 py-1.5 bg-red-50 text-red-600 text-[11px] md:text-xs font-bold rounded-lg hover:bg-red-100 transition-colors"
+                          className="flex items-center gap-1.5 rounded-xl bg-rose-50 px-3.5 py-2 text-xs font-semibold text-rose-700 transition-all hover:bg-rose-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-rose-100"
                         >
                           <svg
                             className="w-3.5 h-3.5"
